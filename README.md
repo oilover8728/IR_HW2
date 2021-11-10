@@ -1,16 +1,26 @@
-# IIR_HW1
+# IIR_HW2
 
 ## 利用Django來做網頁的呈現搜尋結果
+延續HW1，這次要對自己在Pubmed爬下來的10000比文章做相關性的搜尋  
 
-## 網頁首頁畫面 (參考Youtube影片)
-![image](https://drive.google.com/uc?export=view&id=1yltXrmuBYlhs09PegEag4veBYsneG-rp)  
+## Introduction : 
+。Collect data from PubMed and preprocessing.  
+。Construct Index table on database.  
+。User can search by word.  
+。Deal with spelling correction and use Porter algorithm to implement partial match.  
+。Show the Zipf Distribution  
 
-## 網頁搜尋呈現
-![image](https://drive.google.com/uc?export=view&id=1U3ceF-c1o152PrmKi3tfCLJcEuCMT-pq)  
+## Viewgraph :
+![image](https://drive.google.com/uc?export=view&id=18VHjB-oWxZjOxcx8AFnIoe6gjtov1SKC)  
 
-使用sqlite作為database  
-1.按照reference來架設一個最基礎的server架構  
-2.在網路上參考template的寫法並依照個人需求更改版面並使其與server能夠互動  
-3.將template的素材移動到static資料夾並在html定義要去static讀取  
-4.利用views.py來編寫網頁的get/post傳遞參數執行相對應的function，並回傳對應的網頁內容  
-5.利用url.py來控制網頁路徑以及需要執行的function  
+## System environment :
+。Architecture : Django  
+。Language : Python4.0 , HTML , JavaScript , SQLite  
+。Dataset : PubMed  
+
+## 網頁呈現畫面 (參考Youtube影片)
+![image](https://drive.google.com/uc?export=view&id=1Jk0Nn7PMb3eSQDehdPWr8M0uIB7OZi9P)  
+![image](https://drive.google.com/uc?export=view&id=1TSmgfZOPi3Yu7XmS0T0z2iuBSxIwOgDV)  
+![image](https://drive.google.com/uc?export=view&id=1sKoAbHJOcQAP8Wlmpptm1N521ABPAdMi)  
+![image](https://drive.google.com/uc?export=view&id=1s2nQzGeA67BnInF3NZK-AHA9eZloWWju)  
+
