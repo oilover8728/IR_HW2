@@ -18,7 +18,7 @@
 。Language : Python4.0 , HTML , JavaScript , SQLite  
 。Dataset : PubMed  
 
-## 網頁呈現畫面 (參考Youtube影片)
+## 網頁呈現畫面 
 ![image](https://drive.google.com/uc?export=view&id=1Jk0Nn7PMb3eSQDehdPWr8M0uIB7OZi9P)  
 ![image](https://drive.google.com/uc?export=view&id=1TSmgfZOPi3Yu7XmS0T0z2iuBSxIwOgDV)  
 ![image](https://drive.google.com/uc?export=view&id=1sKoAbHJOcQAP8Wlmpptm1N521ABPAdMi)  
