@@ -1,0 +1,111 @@
+<!doctype html>
+{% load static %}
+<html>
+    <head>
+        <title> Parallax Scrolling Website | Vanilla Javascript </title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="top" id="top">
+            <header class="top" id="top">
+                <a href="#" class="logo">IIR</a>
+                <ul id="ul">
+                    <li><a href="#top" class="active">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Work</a></li>
+                    <li><a href="{% url 'index' %}">Context</a></li>
+                </ul>
+            </header>
+        </div>
+        <section>
+            <img src="{% static 'assets/img/stars.png' %}" id="stars">
+            <img src="{% static 'assets/img/moon.png' %}" id="moon">
+            <img src="{% static 'assets/img/mountains_behind.png' %}" id="mountains_behind">
+            <h2 id="text">Moon Light</h2>
+            <a href="#sec" id="btn">Explore</a>
+            <img src="{% static 'assets/img/mountains_front.png' %}" id="mountains_front">
+        </section>
+        <div class="sec" id="sec">
+            <h2>Content</h2>
+            <nav  class="navbar navbar-expand-lg">
+                <form action="upload_file" method="post" enctype="multipart/form-data">
+                    <nav class="navbar navbar-expand-lg">
+                    {% csrf_token %}
+                    {{ form.as_p }} <!--選擇檔案-->
+                    <button class="btn btn-info" type="submit" name='upload' >Upload</button>
+                    </nav>
+                </form>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <ul class="navbar-nav mr-auto" style="right: 5em;">
+                    <li class="nav-item dropdown">
+                        <a class="btn btn-secondary dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown">Choose File</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" aria-expanded="false">
+                            {% csrf_token %}
+                            {% for file_name in files %}
+                            <a class="dropdown-item" href='/search/home?file_name={{file_name}}#sec'>{{ file_name }}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <p style="color:red;">{{ error }}</p>
+            <!--Search bar-->
+            <form action="search" method="post"  style="font-size:30px; color:yellow;">
+                {% csrf_token %}
+                Search
+                <input type="text" name="search_token" style="width: 50%;border-radius:10px; " placeholder="搜尋內容">
+                <input type="submit" value="Go" class="btn btn-primary btn-lg">&nbsp;&nbsp;
+                <a class="btn btn-danger btn-lg" href="{% url 'clear' %}">clear</a>
+                {% if sentences_count %}
+                    <span style="color: #fff;font-size: medium;">Sentence : {{ sentences_count }}&nbsp;&nbsp;&nbsp; Words : {{ words_count }} &nbsp;&nbsp;&nbsp;Character : {{ chars_count }}</span>
+                {% endif %}
+
+            </form>
+            <hr size="8px" align="center" width="100%">
+            <!--Content-->
+            {% if find_count %}
+                <span style="color: #fff;font-size: medium;">Find : {{ find_count }}</span>
+            {% endif %}
+            {% for data in json_output %}
+            <p style="font-size:30px; color:rgb(0, 183, 255);">{{data.0|safe}}</p>
+            <p>{{data.1|safe}}</p>
+            {% endfor %}
+            
+            {% for data in xml_output %}
+            <p style="font-size:30px; color:rgb(0, 183, 255);">{{data.0|safe}}</p>
+                {% for topic in data.1 %}
+                <p style="font-size:20px;color:rgb(255, 153, 0)">{{topic.0|safe}}</p>
+                    {% for text in topic.1 %}
+                    <p >{{text|safe}}</p>
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <script>
+            let stars = document.getElementById('stars');
+            let moon = document.getElementById('moon');
+            let mountains_behind = document.getElementById('mountains_behind');
+            let text = document.getElementById('text');
+            let btn = document.getElementById('btn');
+            let mountains_front = document.getElementById('mountains_front');
+            let header = document.querySelector('header')
+
+            window.addEventListener('scroll', function(){
+                let value = window.scrollY;
+                stars.style.left = value * 0.25 + 'px';
+                moon.style.top = value * 1.05 + 'px';
+                mountains_behind.style.top = value * 0.5 + 'px';
+                text.style.marginRight = value * 4 + 'px';                
+                text.style.marginTop = value * 1.5 + 'px';    
+                btn.style.marginTop = value * 1.5 + 'px';             
+                header.style.top = value + 'px';
+            })
+        </script>   
+    </body>
+</htl>

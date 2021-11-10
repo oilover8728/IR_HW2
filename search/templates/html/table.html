@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+{% block content %}
+<head>
+  <a href="#" class="logo" style="font-weight: 700;
+  text-decoration: none;
+  font-size: 2em;
+  text-transform: uppercase;
+  letter-spacing: 2px;position: absolute;
+  top: 0;
+  left: 50px;
+  width:100%;
+  padding: 30px 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;">IR</a>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <title>IR_HW</title>
+  <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
+</head>
+
+<body>
+  <ul>
+    <li class="list-group-item list-group-item-primary" style="float:right;margin:7px; font-size: large;right:20%;"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+    <li class="list-group-item list-group-item-dark" style="float:right;margin:7px; font-size: large;right:20%;"><a class="nav-link" href="{% url 'index' %}">Search</a></li>
+    <li class="list-group-item list-group-item-dark" style="float:right;margin:7px; font-size: large;right:20%;"><a class="nav-link" href="{% url 'graph' %}">graph</a></li>
+
+  </ul>
+  <br>  
+  <br>
+  <div  class="container">
+    <h1>Table</h1>
+  </div>
+
+  <div class="container">
+    <h4 style="color:rgba(194, 90, 5, 0.842);">Data base</h4>
+
+    <table class="table table-bordered table-striped">
+      <tr>
+        <th>Word</th>
+        <th>Index</th>
+      </tr>
+      {% for row_data in table %}
+      <tr>
+        <td>{{ row_data.word }}</td>
+        <td>{{ row_data.content_index }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+</body>
+
+{% endblock %}
+</html>
